@@ -7,6 +7,7 @@ import net.dongliu.apk.parser.struct.resource.ResourceEntry;
 import net.dongliu.apk.parser.struct.resource.ResourceTable;
 import net.dongliu.apk.parser.struct.resource.Type;
 import net.dongliu.apk.parser.struct.xml.*;
+import net.dongliu.apk.parser.utils.Pair;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -128,6 +129,12 @@ public class ApkMetaTranslator implements XmlStreamer {
                         attributes.getString("android:protectionLevel"));
                 apkMetaBuilder.addPermissions(permission);
                 break;
+            case "meta-data":
+                apkMetaBuilder.metaDatas.add(new MetaData(
+                        attributes.getString("name"),
+                        attributes.getString("value")
+                        ));
+                //System.out.println(attributes.getString("name"));
         }
         tagStack[depth++] = xmlNodeStartTag.getName();
     }

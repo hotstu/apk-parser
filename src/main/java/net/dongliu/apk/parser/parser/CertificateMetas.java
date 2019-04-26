@@ -27,12 +27,14 @@ public class CertificateMetas {
         String certMd5 = md5Digest(bytes);
         String publicKeyString = byteToHexString(bytes);
         String certBase64Md5 = md5Digest(publicKeyString);
+        String certsha1 = sha1Digest(bytes);
+        String certsha256 = sha256Digest(bytes);
         return new CertificateMeta(
                 certificate.getSigAlgName().toUpperCase(),
                 certificate.getSigAlgOID(),
                 certificate.getNotBefore(),
                 certificate.getNotAfter(),
-                bytes, certBase64Md5, certMd5);
+                bytes, certBase64Md5, certMd5, certsha1, certsha256);
     }
 
     private static String md5Digest(byte[] input) {
@@ -41,8 +43,20 @@ public class CertificateMetas {
         return getHexString(digest.digest());
     }
 
+    private static String sha1Digest(byte[] input) {
+        MessageDigest digest = getDigest("SHA-1");
+        digest.update(input);
+        return getHexString(digest.digest());
+    }
+
+    private static String sha256Digest(byte[] input) {
+        MessageDigest digest = getDigest("SHA-256");
+        digest.update(input);
+        return getHexString(digest.digest());
+    }
+
     private static String md5Digest(String input) {
-        MessageDigest digest = getDigest("md5");
+        MessageDigest digest = getDigest("MD5");
         digest.update(input.getBytes(StandardCharsets.UTF_8));
         return getHexString(digest.digest());
     }
@@ -61,8 +75,16 @@ public class CertificateMetas {
     }
 
     private static String getHexString(byte[] digest) {
-        BigInteger bi = new BigInteger(1, digest);
-        return String.format("%032x", bi);
+//        BigInteger bi = new BigInteger(1, digest);
+//        return String.format("%032X", bi);
+        StringBuffer hexString = new StringBuffer();
+        for (int i = 0; i < digest.length; i++) {
+            if (i != 0) {
+                hexString.append(':');
+            }
+            hexString.append(Integer.toHexString(0xFF & digest[i]).toUpperCase());
+        }
+        return hexString.toString();
     }
 
     private static MessageDigest getDigest(String algorithm) {

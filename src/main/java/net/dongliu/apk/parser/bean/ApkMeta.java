@@ -1,6 +1,7 @@
 package net.dongliu.apk.parser.bean;
 
 import net.dongliu.apk.parser.AbstractApkFile;
+import net.dongliu.apk.parser.utils.Pair;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -40,6 +41,7 @@ public class ApkMeta {
     private final List<String> usesPermissions;
     private final List<UseFeature> usesFeatures;
     private final List<Permission> permissions;
+    private final List<MetaData> metaDatas;
 
     private ApkMeta(Builder builder) {
         packageName = builder.packageName;
@@ -63,6 +65,7 @@ public class ApkMeta {
         usesPermissions = builder.usesPermissions;
         usesFeatures = builder.usesFeatures;
         permissions = builder.permissions;
+        metaDatas = builder.metaDatas;
     }
 
     public static Builder newBuilder() {
@@ -197,7 +200,8 @@ public class ApkMeta {
                 + "versionCode: \t" + versionCode + "\n"
                 + "minSdkVersion: \t" + minSdkVersion + "\n"
                 + "targetSdkVersion: \t" + targetSdkVersion + "\n"
-                + "maxSdkVersion: \t" + maxSdkVersion;
+                + "maxSdkVersion: \t" + maxSdkVersion + "\n"
+                + "meta-data: \t" + metaDatas;
     }
 
     public static final class Builder {
@@ -222,6 +226,8 @@ public class ApkMeta {
         private List<String> usesPermissions = new ArrayList<>();
         private List<UseFeature> usesFeatures = new ArrayList<>();
         private List<Permission> permissions = new ArrayList<>();
+        public List<MetaData> metaDatas = new ArrayList<>();
+
 
         private Builder() {
         }

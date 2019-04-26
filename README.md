@@ -1,3 +1,10 @@
+#### What's new In this fork?
+
+* runnable jar export
+* generate SHA1 & SHA256 hash in form of 'AA:BB:CC...'
+
+
+
 Apk parser lib, for decoding binary xml file, getting apk meta info.
 
 #### Features

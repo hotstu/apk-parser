@@ -50,9 +50,11 @@ public class CertificateMeta {
      * use md5 to calculate certificate's certMd5.
      */
     private final String certMd5;
+    private final String certsha1;
+    private final String certsha256;
 
     public CertificateMeta(String signAlgorithm, String signAlgorithmOID, Date startDate, Date endDate,
-                           byte[] data, String certBase64Md5, String certMd5) {
+                           byte[] data, String certBase64Md5, String certMd5, String certsha1, String certsha256) {
         this.signAlgorithm = signAlgorithm;
         this.signAlgorithmOID = signAlgorithmOID;
         this.startDate = startDate;
@@ -60,6 +62,8 @@ public class CertificateMeta {
         this.data = data;
         this.certBase64Md5 = certBase64Md5;
         this.certMd5 = certMd5;
+        this.certsha1 = certsha1;
+        this.certsha256 = certsha256;
     }
 
     public byte[] getData() {
@@ -90,11 +94,19 @@ public class CertificateMeta {
         return signAlgorithmOID;
     }
 
+    public String getCertsha1() {
+        return certsha1;
+    }
+
+    public String getCertsha256() {
+        return certsha256;
+    }
+
     @Override
     public String toString() {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return "CertificateMeta{signAlgorithm=" + signAlgorithm + ", " +
-                "certBase64Md5=" + certBase64Md5 + ", " +
+                "getCertBase64Md5=" + certBase64Md5 + ", " +
                 "startDate=" + df.format(startDate) + ", " + "endDate=" + df.format(endDate) + "}";
     }
 }
