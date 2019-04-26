@@ -35,11 +35,11 @@ public class Main {
                 case "meta":
                     System.out.println(apkFile.getApkMeta());
                     for (ApkSigner apkSinger : apkFile.getApkSingers()) {
-                        System.out.println("证书" + apkSinger.getPath());
+                        System.out.println("cert: \t" + apkSinger.getPath());
                         for (CertificateMeta certificateMeta : apkSinger.getCertificateMetas()) {
-                            System.out.println("md5:" + certificateMeta.getCertMd5());
-                            System.out.println("sha1:" + certificateMeta.getCertsha1());
-                            System.out.println("sha256:" + certificateMeta.getCertsha256());
+                            System.out.println("md5: \t" + certificateMeta.getCertMd5());
+                            System.out.println("sha1: \t" + certificateMeta.getCertsha1());
+                            System.out.println("sha256: \t" + certificateMeta.getCertsha256());
                         }
                     }
                     break;
